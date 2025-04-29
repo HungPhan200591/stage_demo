@@ -1,14 +1,17 @@
-package com.example;
+package com.example.stage;
+
+import com.example.AbstractStageTask;
+import com.example.Stage;
 
 import java.util.concurrent.ExecutorService;
 
-public class InitStageTask extends AbstractStageTask {
+public class InitStageTask<T> extends AbstractStageTask<T> {
     public InitStageTask(ExecutorService executorService) {
         super(executorService);
     }
 
     @Override
-    protected void doProcess(Stage stage) {
+    protected void doProcess(Stage<T> stage) {
         System.out.println(Thread.currentThread().getName() + " - Init Stage: " + stage.getId());
         stage.setStatus("Init");
         // Giả lập xử lý

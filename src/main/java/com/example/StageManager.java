@@ -1,14 +1,19 @@
 package com.example;
 
+import com.example.stage.CancelStageTask;
+import com.example.stage.CompleteStageTask;
+import com.example.stage.InitStageTask;
+import com.example.stage.ProcessStageTask;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.UUID;
 
 public class StageManager implements AutoCloseable {
     private final ExecutorService initExecutor;
     private final ExecutorService processExecutor;
     private final ExecutorService completeExecutor;
     private final ExecutorService cancelExecutor;
-    private Stage currentStage;
 
     public StageManager() {
         this.initExecutor = Executors.newFixedThreadPool(2);
@@ -17,21 +22,23 @@ public class StageManager implements AutoCloseable {
         this.cancelExecutor = Executors.newSingleThreadExecutor();
     }
 
-    public void startWorkflow() {
-        currentStage = new Stage("1");
+    public <T> void startWorkflow(T data) {
+        String stageId = UUID.randomUUID().toString().substring(0, 8);
+        Stage<T> stage = new Stage<>(stageId, data);
 
         try {
-            StageTask initStageTask = new InitStageTask(initExecutor);
-            initStageTask.execute(currentStage);
+            InitStageTask<T> initStageTask = new InitStageTask<>(initExecutor);
+            initStageTask.execute(stage);
 
-            StageTask processStageTask = new ProcessStageTask(processExecutor);
-            processStageTask.execute(currentStage);
+            ProcessStageTask<T> processStageTask = new ProcessStageTask<>(processExecutor);
+            processStageTask.execute(stage);
 
-            StageTask completeStageTask = new CompleteStageTask(completeExecutor);
-            completeStageTask.execute(currentStage);
+            CompleteStageTask<T> completeStageTask = new CompleteStageTask<>(completeExecutor);
+            completeStageTask.execute(stage);
 
         } catch (Exception e) {
-            new CancelStageTask(cancelExecutor).execute(currentStage);
+            CancelStageTask<T> cancelStageTask = new CancelStageTask<>(cancelExecutor);
+            cancelStageTask.execute(stage);
         }
     }
 

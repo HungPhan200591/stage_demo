@@ -1,5 +1,5 @@
 package com.example;
 
-public interface StageTask {
-    void execute(Stage stage);
+public interface StageTask<T> {
+    void execute(Stage<T> stage);
 }
