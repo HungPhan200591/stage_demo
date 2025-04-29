@@ -1,14 +1,16 @@
 package com.example;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Slf4j
 public abstract class AbstractStageTask<T> implements StageTask<T> {
-    protected final ExecutorService executorService;
+    protected final ThreadPoolTaskExecutor executorService;
 
-    protected AbstractStageTask(ExecutorService executorService) {
+    protected AbstractStageTask(ThreadPoolTaskExecutor executorService) {
         this.executorService = executorService;
     }
 

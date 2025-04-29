@@ -1,25 +1,26 @@
 package com.example;
 
 import com.example.dto.Person;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
+@SpringBootApplication
 public class Main {
-    public static void main(String[] args) {
-        try (StageManager stageManager = new StageManager()) {
-            // Xử lý đối tượng String
-            stageManager.startWorkflow("Object String");
 
-//            // Xử lý đối tượng Integer
-//            stageManager.startWorkflow(100);
-//
-//            // Xử lý đối tượng tùy chỉnh
-//            Person person = new Person("John Doe", 30);
-//            stageManager.startWorkflow(person);
 
-            // Thêm một khoảng thời gian chờ để đảm bảo các task hoàn thành
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+
+    public static void main(String[] args) throws InterruptedException {
+
+        ApplicationContext context = SpringApplication.run(Main.class, args);
+
+        // Lấy StageManager từ context
+        StageManager stageManager = context.getBean(StageManager.class);
+
+        stageManager.startWorkflow("Object String");
+        Thread.sleep(5000);
+
     }
 
 }
