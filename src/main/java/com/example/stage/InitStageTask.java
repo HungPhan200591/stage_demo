@@ -2,9 +2,11 @@ package com.example.stage;
 
 import com.example.AbstractStageTask;
 import com.example.Stage;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
 
+@Slf4j
 public class InitStageTask<T> extends AbstractStageTask<T> {
     public InitStageTask(ExecutorService executorService) {
         super(executorService);
@@ -12,7 +14,7 @@ public class InitStageTask<T> extends AbstractStageTask<T> {
 
     @Override
     protected void doProcess(Stage<T> stage) {
-        System.out.println(Thread.currentThread().getName() + " - Init Stage: " + stage.getId());
+        log.info("{} - Init Stage: {}", Thread.currentThread().getName(), stage.getId());
         stage.setStatus("Init");
         // Giả lập xử lý
         try {
