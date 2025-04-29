@@ -14,7 +14,7 @@ public class InitStageTask<T> extends AbstractStageTask<T> {
 
     @Override
     protected void doProcess(Stage<T> stage) {
-        log.info("{} - Init Stage: {}", Thread.currentThread().getName(), stage.getId());
+        log.info("Init Stage: {}, data: {}",  stage.getId(),stage.getData());
         stage.setStatus("Init");
         // Giả lập xử lý
         try {

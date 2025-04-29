@@ -14,7 +14,7 @@ public class CancelStageTask<T> extends AbstractStageTask<T> {
 
     @Override
     protected void doProcess(Stage<T> stage) {
-        log.info("{} - Cancel Stage: {}", Thread.currentThread().getName(), stage.getId());
+        log.info("Cancel Stage: {}, data: {}",  stage.getId(),stage.getData());
         stage.setStatus("Cancelled");
     }
 }

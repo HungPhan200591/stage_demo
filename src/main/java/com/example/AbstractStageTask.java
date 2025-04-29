@@ -22,12 +22,12 @@ public abstract class AbstractStageTask<T> implements StageTask<T> {
     }
 
     protected void preProcess(Stage<T> stage) {
-        log.info("{} - Chuẩn bị xử lý cho stage: {}, data: {}", Thread.currentThread().getName(), stage.getId(), stage.getData());
+        log.info("Chuẩn bị xử lý cho stage: {}, data: {}", stage.getId(), stage.getData());
     }
 
     protected abstract void doProcess(Stage<T> stage);
 
     protected void postProcess(Stage<T> stage) {
-        log.info("{} - Kết thúc xử lý cho stage: {}, data: {}, trạng thái hiện tại: {}", Thread.currentThread().getName(), stage.getId(), stage.getData(), stage.getStatus());
+        log.info("Kết thúc xử lý cho stage: {}, data: {}, trạng thái hiện tại: {}", stage.getId(), stage.getData(), stage.getStatus());
     }
 }

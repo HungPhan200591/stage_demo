@@ -15,7 +15,7 @@ public class ProcessStageTask<T> extends AbstractStageTask<T> {
 
     @Override
     protected void doProcess(Stage<T> stage) {
-        log.info("{} - Process Stage: {}, data: {}", Thread.currentThread().getName(), stage.getId(), stage.getData());
+        log.info("Process Stage: {}, data: {}", stage.getId(), stage.getData());
         stage.setStatus("Processing");
         // Giả lập xử lý
         try {
