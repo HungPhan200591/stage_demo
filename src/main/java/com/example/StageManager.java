@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.UUID;
-import java.util.concurrent.Executor;
 
 @Component
 @RequiredArgsConstructor
